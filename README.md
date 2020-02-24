@@ -18,10 +18,11 @@ Weather map is a app for consult the weather in every place of the map, and plus
 
 ### TODO
 
-- [ ] Create backend app
-- [ ] Add basic configuration (cors, helmet, dotenv, morgan)
-- [ ] Add postgres configuration
-- [ ] Add CRUD for the favorites places
+- [x] Create backend app
+- [x] Add basic configuration (cors, helmet, dotenv, morgan)
+- [x] Add postgres configuration
+- [ ] Add migrations for the favorites places
+- [x] Add CRUD for the favorites places
 - [ ] Add routes for the favorite places
 - [ ] Add redis for some shit
 - [ ] Create frontend app
