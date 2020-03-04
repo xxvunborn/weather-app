@@ -133,9 +133,9 @@ Response:
 - [x] Add CRUD for the favorites places
 - [x] Add routes for the favorite places
 - [ ] Add redis for some shit
-- [ ] Create frontend app
+- [x] Create frontend app
 - [ ] Add basic configuration and folder structure
-- [ ] Add mapbox to component
+- [x] Add mapbox to component
 - [ ] Create component to consult with one click in the map the weather with the lat and lang
 - [ ] Create component for create a favorite place with two click in the map with the lat and lang
 - [ ] Create component for list all the favorite places in a list or in the map
