@@ -1,13 +1,16 @@
 const { Client } = require("pg");
 
 const client = new Client({
-  user: proces.env.POSTGRES_USER || "root",
+  user: process.env.POSTGRES_USER || "postgres",
   host: process.env.POSTGREST_HOST || "localhost",
   database: process.env.POSTGRES_DATABASE || "weather",
-  password: process.env.POSTGRES_PASSWORD || "",
-  port: proces.env.POSTGRES_PORT || 5432
+  password: process.env.POSTGRES_PASSWORD || "12345",
+  port: process.env.POSTGRES_PORT || 5432
 });
 
-await client.connect();
+const postgres = () => {
+  client.connect();
+  return client;
+};
 
-module.exports = client;
+module.exports = postgres();

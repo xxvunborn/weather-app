@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  weather-api:
+    build: .
+    restart: always
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGREST_HOST=weather-postgres
+      - POSTGRES_DATABASE=weather
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_PORT=5432
+    depends_on:
+      - weather-postgres
+    ports:
+      - "3001:3001"
+    command:
+      [
+        "/bin/sh",
+        "-l",
+        "-c",
+        "npm install && ./bin/goose -dir ./src/database/postgres/migrations postgres postgres://postgres:12345@weather-postgres:5432/weather?sslmode=disable up && npm run dev",
+      ]
+
+  weather-postgres:
+    restart: always
+    image: postgres:11.2-alpine
+    environment:
+      - NODE_ENV=development
+      - POSTGRES_DB=weather
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345

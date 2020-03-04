@@ -1,30 +1,41 @@
 const database = require("./../database");
 
-export const getFavoritePlaces = async () => {
-  const res = await database.query("SELECT * FROM favorite_places");
-  return res;
+const getFavoritePlace = async id => {
+  try {
+    const res = await database.query(
+      "SELECT * FROM favorite_places where id = $1",
+      [id]
+    );
+    if (res.rows.length === 0) return { error: `id: ${id} not found` };
+    return res.rows;
+  } catch (err) {
+    return err;
+  }
 };
 
-export const getFavoritePlaceById = async id => {
-  const res = await database.query(
-    "SELECT * FROM favorite_places WHERE id = ?",
-    id
-  );
-  return res;
+const getFavoritePlaces = async () => {
+  try {
+    const res = await database.query("SELECT * FROM favorite_places");
+    return res.rows;
+  } catch (err) {
+    return err;
+  }
 };
 
-// TODO(cm): Whay is data?
-export const createFavoritePlace = async data => {
-  const res = await database.query("INSERT");
-  return res;
+const createFavoritePlace = async req => {
+  try {
+    const res = await database.query(
+      "INSERT INTO favorite_places (user_id, title, longitude, latitude) VALUES ($1, $2, $3, $4) RETURNING *",
+      [req.user_id, req.name, req.longitude, req.latitude]
+    );
+    return res.rows;
+  } catch (err) {
+    return err;
+  }
 };
 
-export const updateFavoritePlace = async data => {
-  const res = await database.query("UPDATE");
-  return res;
-};
-
-export const deleteFavoritePlace = async data => {
-  const res = await data.query("UPDATE deleted_at");
-  return res;
+module.exports = {
+  getFavoritePlace,
+  getFavoritePlaces,
+  createFavoritePlace
 };
